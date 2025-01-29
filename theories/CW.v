@@ -48,8 +48,26 @@ Definition isnil {A} (l : list A) :=
 
 Section CW.
 
-  Universes i j k l m.
+  (** Universes and their constraints
+
+    It would be interesting if we could simplify them, as several of them are
+    morally max or +1 but cannot appear in terms as algebraic universes.
+
+    We could also decide to equate some of them, but I'm not sure it's worth it.
+
+    What one needs to remember is that at the end of the day, the universe of
+    [CW] ([u]) needs to be at least as big as [max(j,k,l)] and that's it!
+
+  **)
+  Universes i j k l m u v w.
   Constraint l < m.
+  Constraint l < v.
+  Constraint i <= m.
+  Constraint i <= w.
+  Constraint l <= w.
+  Constraint j <= u.
+  Constraint k <= u.
+  Constraint l <= u.
 
   (** Type of indices **)
   Context (Ix : Type@{i}).
@@ -125,8 +143,7 @@ Section CW.
 
   **)
 
-  Inductive args@{u v w | l < v, i <= w, l <= w} (I : Ix → Type@{u}) (l : cstrs) : Type@{max(u,l)} :=
-  (* Inductive args (I : Ix → Type) (l : cstrs) : Type := *)
+  Inductive args (I : Ix → Type@{u}) (l : cstrs) : Type@{max(u,l)} :=
   | args_nil : isnil@{m} l → args I l
   | args_oind (h : is_ind l) :
     I (ind_ix l h) → args I (ind_tl l h) → args I l
@@ -137,10 +154,7 @@ Section CW.
   Arguments args_oind {I l}.
   Arguments args_qind {I l}.
 
-  Inductive CW@{u v w} : Ix → Type@{u} :=
-  | con (c : Cons) (ctx : Ctx c) : args@{u v w} CW (Args c ctx) → CW (idx c ctx).
+  Inductive CW : Ix → Type@{u} :=
+  | con (c : Cons) (ctx : Ctx c) : args CW (Args c ctx) → CW (idx c ctx).
 
 End CW.
-
-(* Set Printing Universes.
-Print CW. *)
