@@ -1,2 +1,3 @@
-# cw-types
+# CW types
+
 Alternative to W types that actually computes
