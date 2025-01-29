@@ -150,11 +150,16 @@ Section CW.
   | args_qind (h : is_qind l) :
     (∀ (c : qind_ty@{v l} l h), I (qind_i@{v w} l h c)) → args I (qind_tl l h) → args I l.
 
-  Arguments args_nil {I l}.
-  Arguments args_oind {I l}.
-  Arguments args_qind {I l}.
-
   Inductive CW : Ix → Type@{u} :=
   | con (c : Cons) (ctx : Ctx c) : args CW (Args c ctx) → CW (idx c ctx).
 
 End CW.
+
+Arguments ind {Ix}.
+Arguments qind {Ix}.
+
+Arguments args_nil {Ix I l}.
+Arguments args_oind {Ix I l}.
+Arguments args_qind {Ix I l}.
+
+Arguments con {Ix Cons Ctx Args idx}.
