@@ -1,0 +1,4 @@
+-R theories CW
+-arg "-indices-matter"
+
+theories
