@@ -48,35 +48,40 @@ Definition isnil {A} (l : list A) :=
 
 Section CW.
 
+  Universes i j k l m.
+  Constraint l < m.
+
   (** Type of indices **)
-  Context (Ix : Type).
+  Context (Ix : Type@{i}).
 
   (** Instances of recursive arguments **)
-  Inductive ind_inst : Type :=
+  Inductive ind_inst@{u} : Type@{max(u+1,i)} :=
   | ind (ix : Ix)
-  | qind (A : Type) (i : A → Ix).
+  | qind (A : Type@{u}) (i : A → Ix).
 
   (** Type of constructors (or rather index for the family of constructors) **)
-  Context (Cons : Type).
+  Context (Cons : Type@{j}).
 
   (** Context (Type) associated to each constructor **)
-  Context (Ctx : Cons → Type).
+  Context (Ctx : Cons → Type@{k}).
 
   (** Recursive arguments for each constructor **)
-  Context (Args : ∀ (c : Cons), Ctx c → list ind_inst).
+  Context (Args : ∀ (c : Cons), Ctx c → list@{m} ind_inst@{l}).
 
   (** Index of the return type of each constructor **)
   Context (idx : ∀ (c : Cons), Ctx c → Ix).
 
+  Notation cstrs := (list@{m} ind_inst@{l}).
+
   (** Useful projections from lists of [ind_inst] **)
 
-  Definition is_ind (l : list ind_inst) :=
+  Definition is_ind (l : cstrs) :=
     match l with
     | cons (ind ix) l => True
     | _ => False
     end.
 
-  Definition is_qind (l : list ind_inst) :=
+  Definition is_qind (l : cstrs) :=
     match l with
     | cons (qind A i) l => True
     | _ => False
@@ -120,18 +125,22 @@ Section CW.
 
   **)
 
-  Inductive args (I : Ix → Type) (l : list ind_inst) : Type :=
-  | args_nil : isnil l → args I l
+  Inductive args@{u v w | l < v, i <= w, l <= w} (I : Ix → Type@{u}) (l : cstrs) : Type@{max(u,l)} :=
+  (* Inductive args (I : Ix → Type) (l : cstrs) : Type := *)
+  | args_nil : isnil@{m} l → args I l
   | args_oind (h : is_ind l) :
     I (ind_ix l h) → args I (ind_tl l h) → args I l
   | args_qind (h : is_qind l) :
-    (∀ (c : qind_ty l h), I (qind_i l h c)) → args I (qind_tl l h) → args I l.
+    (∀ (c : qind_ty@{v l} l h), I (qind_i@{v w} l h c)) → args I (qind_tl l h) → args I l.
 
   Arguments args_nil {I l}.
   Arguments args_oind {I l}.
   Arguments args_qind {I l}.
 
-  Inductive CW : Ix → Type :=
-  | con (c : Cons) (ctx : Ctx c) : args CW (Args c ctx) → CW (idx c ctx).
+  Inductive CW@{u v w} : Ix → Type@{u} :=
+  | con (c : Cons) (ctx : Ctx c) : args@{u v w} CW (Args c ctx) → CW (idx c ctx).
 
 End CW.
+
+(* Set Printing Universes.
+Print CW. *)
