@@ -5,6 +5,9 @@
   We first recall what an indexed W types is before showing it can be encoded
   using CW types while retaining the computation rules.
 
+  We take the version of Jasper Hugunin here, as defined in
+  https://github.com/jashug/IWTypes
+
 **)
 
 From Coq Require Import Utf8 Lia.
