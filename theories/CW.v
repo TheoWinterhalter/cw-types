@@ -14,6 +14,14 @@
   The CW type we provide supports indices. We also use option "-indices-matter"
   to make sure we handle universes properly.
 
+  TODO:
+  - We could follow Bruno's idea of separating [qind] and [ind] so that we get
+    something simpler.
+  - We could get rid of the [Ctx] argument and instead assume sums (more like
+    the usual W types).
+  - We could provide a recursive version of [args] that we show equivalent and
+    that we use in instances to ease type checking (probably).
+
 **)
 
 From Coq Require Import Utf8.
