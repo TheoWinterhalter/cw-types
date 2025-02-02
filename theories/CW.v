@@ -19,8 +19,6 @@
     something simpler.
   - We could get rid of the [Ctx] argument and instead assume sums (more like
     the usual W types).
-  - We could provide a recursive version of [args] that we show equivalent and
-    that we use in instances to ease type checking (probably).
 
 **)
 
@@ -170,4 +168,9 @@ Arguments args_nil {Ix I l}.
 Arguments args_oind {Ix I l}.
 Arguments args_qind {Ix I l}.
 
+Arguments args_nil Ix I &l.
+Arguments args_oind Ix I &l.
+Arguments args_qind Ix I &l.
+
 Arguments con {Ix Cons Ctx Args idx}.
+Arguments con Ix Cons Ctx &Args idx.

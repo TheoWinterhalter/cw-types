@@ -76,7 +76,7 @@ Section IW.
 
   (** We also define the constructor [sup]: **)
   Definition sup (x : A) (f : ∀ c, IW (D x c)) : IW (C x) :=
-    con tt x (args_qind (l := cons (qind _ _) _) CW.I f (args_nil (l := nil) CW.I)).
+    con tt x (args_qind CW.I f (args_nil CW.I)).
 
   (** Finally we define the eliminator. **)
   Equations IW_rect (P : ∀ i, IW i → Type)

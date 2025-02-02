@@ -34,11 +34,11 @@ Section Nat.
 
   (** We also define the constructor [zer]: **)
   Definition zer : Nat :=
-    con true tt (args_nil (l := nil) CW.I).
+    con true tt (args_nil CW.I).
 
   (** And the constructor [suc]: **)
   Definition suc (n : Nat) : Nat :=
-    con false tt (args_oind (l := cons (ind tt) nil) CW.I n (args_nil (l := nil) CW.I)).
+    con false tt (args_oind CW.I n (args_nil CW.I)).
 
   (** Finally we define the eliminator. **)
   Equations Nat_rect_gen (P : ∀ u, PreNat u → Type)
