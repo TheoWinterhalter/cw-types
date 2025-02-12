@@ -1,7 +1,9 @@
 # CW types
 
-Alternative to W types that actually computes, essentially providing an 
+Alternative to W types that actually computes, essentially providing an
 alternative to Hugunin's "Why not W?".
+
+[Files are rendered here.](https://theowinterhalter.github.io/cw-types/)
 
 ## Building
 
