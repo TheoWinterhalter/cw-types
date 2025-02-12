@@ -14,9 +14,8 @@
   The CW type we provide supports indices. We also use option "-indices-matter"
   to make sure we handle universes properly.
 
-  TODO:
-  - We could follow Bruno's idea of separating [qind] and [ind] so that we get
-    something simpler.
+  Notes:
+  - We could separate [qind] and [ind] so that we get something simpler.
   - We could get rid of the [Ctx] argument and instead assume sums (more like
     the usual W types).
 
