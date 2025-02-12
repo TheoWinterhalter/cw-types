@@ -1,0 +1,15 @@
+opam-version: "2.0"
+version: "1.0"
+maintainer: "theo.winterhalter@inria.fr"
+dev-repo: "https://github.com/TheoWinterhalter/cw-types.git"
+bug-reports: "https://github.com/TheoWinterhalter/cw-types/issues"
+authors: [
+  "Théo Winterhalter <theo.winterhalter@inria.fr>"
+]
+depends: [
+  "coq" { >= "8.20" & < "8.21~" }
+  "coq-equations" { >= "1.3" }
+]
+build: [
+  [make]
+]

@@ -49,3 +49,5 @@ Makefile.coq
 Makefile.coq.conf
 
 .DS_Store
+
+doc/coqdoc/*
